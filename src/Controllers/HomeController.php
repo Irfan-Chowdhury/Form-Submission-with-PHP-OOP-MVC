@@ -4,18 +4,16 @@ namespace App\Controllers;
 
 use App\Models\Journal;
 use App\Controller;
-use App\Database\DatabaseManager;
+use App\Models\Order;
 use Exception;
-
-// use DatabaseManager;
 
 class HomeController extends Controller
 {
-    private $db;
+    public static $order;
 
     public function __construct()
     {
-        $this->db = new DatabaseManager();
+        $this->order = new Order();
     }
 
     public function index()
@@ -31,31 +29,26 @@ class HomeController extends Controller
 
     public function store()
     {
-        // print_r($_REQUEST);    
-        // print_r($_POST['buyer']);    
- 
-        $data = [
-            'amount'  => mysqli_real_escape_string($this->db->link, $_POST['amount']),
-            'buyer'  => mysqli_real_escape_string($this->db->link, $_POST['buyer']),
-            'receipt_id'  => mysqli_real_escape_string($this->db->link, $_POST['receipt_id']),
-            'items'  => mysqli_real_escape_string($this->db->link, $_POST['items']),
-            'buyer_email'  => mysqli_real_escape_string($this->db->link, $_POST['buyer_email']),
-            'note'  => mysqli_real_escape_string($this->db->link, $_POST['note']),
-            'city'  => mysqli_real_escape_string($this->db->link, $_POST['city']),
-            'phone'  => mysqli_real_escape_string($this->db->link, $_POST['phone']),
-            'entry_by'  => mysqli_real_escape_string($this->db->link, $_POST['entry_by']),    
-        ];
 
-        $arrayKeys = array_keys($data);
-        $arrayKeysData = implode(', ', $arrayKeys);
+        // $data = [
+        //     'amount'  => mysqli_real_escape_string($this->db->link, $_POST['amount']),
+        //     'buyer'  => mysqli_real_escape_string($this->db->link, $_POST['buyer']),
+        //     'receipt_id'  => mysqli_real_escape_string($this->db->link, $_POST['receipt_id']),
+        //     'items'  => mysqli_real_escape_string($this->db->link, $_POST['items']),
+        //     'buyer_email'  => mysqli_real_escape_string($this->db->link, $_POST['buyer_email']),
+        //     'note'  => mysqli_real_escape_string($this->db->link, $_POST['note']),
+        //     'city'  => mysqli_real_escape_string($this->db->link, $_POST['city']),
+        //     'phone'  => mysqli_real_escape_string($this->db->link, $_POST['phone']),
+        //     'entry_by'  => mysqli_real_escape_string($this->db->link, $_POST['entry_by']),    
+        // ];
 
-        $arrayValues = array_values($data);
-        $arrayValuesData = implode("', '", array_map('addslashes', $arrayValues));
-
-        $query = "INSERT INTO orders ($arrayKeysData) VALUES('$arrayValuesData')";
+        foreach ($_POST as $key => $value) {
+            $data[$key] = $this->order->mysqliRealEscapeString($value);
+        }
 
         try {
-            $insertedRow = $this->db->insert($query);
+            $insertedRow = $this->order->insert($data);
+
             if ($insertedRow) {
                 echo 'success';
                 return; 
