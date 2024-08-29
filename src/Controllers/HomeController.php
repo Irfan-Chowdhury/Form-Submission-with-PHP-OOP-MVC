@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Journal;
 use App\Controller;
 use App\Models\Order;
+use DateTime;
 use Exception;
 
 class HomeController extends Controller
@@ -29,22 +30,16 @@ class HomeController extends Controller
 
     public function store()
     {
-
-        // $data = [
-        //     'amount'  => mysqli_real_escape_string($this->db->link, $_POST['amount']),
-        //     'buyer'  => mysqli_real_escape_string($this->db->link, $_POST['buyer']),
-        //     'receipt_id'  => mysqli_real_escape_string($this->db->link, $_POST['receipt_id']),
-        //     'items'  => mysqli_real_escape_string($this->db->link, $_POST['items']),
-        //     'buyer_email'  => mysqli_real_escape_string($this->db->link, $_POST['buyer_email']),
-        //     'note'  => mysqli_real_escape_string($this->db->link, $_POST['note']),
-        //     'city'  => mysqli_real_escape_string($this->db->link, $_POST['city']),
-        //     'phone'  => mysqli_real_escape_string($this->db->link, $_POST['phone']),
-        //     'entry_by'  => mysqli_real_escape_string($this->db->link, $_POST['entry_by']),    
-        // ];
-
+        $data = [];
+        
         foreach ($_POST as $key => $value) {
             $data[$key] = $this->order->mysqliRealEscapeString($value);
         }
+        
+
+        $data['buyer_ip'] = $_SERVER['REMOTE_ADDR']; 
+        $data['hash_key'] = self::generateHashkey($data);
+        $data['entry_at'] = self::generateTimezone($data);
 
         try {
             $insertedRow = $this->order->insert($data);
@@ -58,7 +53,24 @@ class HomeController extends Controller
             return;
         }
     }
+
+    private static function generateHashkey(array $data) : string 
+    {
+        $input = $data['receipt_id'] . 'irfan'; 
+
+        return hash('sha512', $input);
+    }
+
+    private static function generateTimezone(array $data) : string 
+    {
+        date_default_timezone_set('Asia/Dhaka');
+        $currentDateTime = new DateTime();
+
+        return $currentDateTime->format('Y-m-d H:i:s');
+    }
 }
+
+
     /**
      * mysqli_real_escape_string
      * 
