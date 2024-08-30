@@ -51,3 +51,9 @@ const laravelErrorCodes = [
     { code: 404, message: "Not Found" },
     { code: 500, message: "Internal Server Error" },
 ];
+
+
+
+let requiredField = (errorMsgId) => {
+    $('#'+errorMsgId).text('This field is required.');
+}

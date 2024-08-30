@@ -45,7 +45,7 @@ class ValidationManager
     public function isStringWithNoSpace(string $key, $value)
     {
         if (!preg_match('/^[a-zA-Z]+$/', $value)) { 
-            throw new Exception("$key must be text", 400);
+            throw new Exception("$key must be a word", 400);
         }
     }
 

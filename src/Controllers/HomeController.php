@@ -55,15 +55,6 @@ class HomeController extends Controller
 
     public function store()
     {
-        // var_dump($result);
-        // die();
-
-        // $data = $this->orderModel->exists('buyer_email', $_POST['buyer_email']);
-
-        // if($data)
-        //     return 15;
-        // return 10;
-
         try {
     
             $this->validation->isRequired('Amount', $_POST['amount']);
@@ -104,7 +95,7 @@ class HomeController extends Controller
                 'amount'  => self::requestSanitize($_POST['amount']),
                 'buyer'  => self::requestSanitize($_POST['buyer']),
                 'receipt_id'  => self::requestSanitize($_POST['receipt_id']),
-                'items'  => self::requestSanitize($_POST['items']),
+                'items'  => implode(', ', $_POST['items']),
                 'buyer_email'  => self::requestSanitize($_POST['buyer_email']),
                 'note'  => self::requestSanitize($_POST['note']),
                 'city'  => self::requestSanitize($_POST['city']),
