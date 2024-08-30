@@ -39,11 +39,52 @@ class DatabaseManager
         die($this->link->error.__LINE__);
         
         if($result->num_rows > 0) {
-          return $result;
+            return $result;
         } else {
-          return false;
+            return false;
         }
     }
+
+    // public function isExists($query)
+    // {
+    //   $query = "SELECT COUNT(*) FROM orders WHERE orders = 'user@example.com'";
+      
+    //   $result = $this->link->query($query) or 
+    //   die($this->link->error.__LINE__);
+
+    //   if($result->num_rows > 0) {
+
+    //     var_dump(1);
+    //     die();
+    //       return $result;
+    //   } else {
+    //     var_dump(2);
+    //     die();
+    //       return false;
+    //   }
+
+
+
+
+
+
+
+    //     // Execute the query
+    //     $result = $this->link->query($query);
+    //     if (!$result) {
+    //         // Handle query error
+    //         die('Query failed: ' . $this->link->error . ' Line: ' . __LINE__);
+    //     }
+
+    //     // Fetch the result
+    //     $exists = $result->fetch_row();
+
+    //     var_dump($exists);
+    //     die();
+
+    //     // Check if the result is not empty and the first column is '1'
+    //     return $exists[0] == 1;
+    // }
     
     // Insert data
     public function insert($query) {

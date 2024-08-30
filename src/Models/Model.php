@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Database\DatabaseManager;
+use Exception;
 
 abstract class Model
 {
@@ -16,7 +17,7 @@ abstract class Model
     }
 
 
-    public function insert(array $data) : bool
+    public function insert(array $data) 
     {
         $keys = self::getKeys($data);
 
@@ -24,10 +25,20 @@ abstract class Model
 
         $query = "INSERT INTO $this->table ($keys) VALUES('$vaues')";
 
-        $this->db->insert($query);
+        $result = $this->db->insert($query);
 
-        return true; 
+        if(!$result) {
+            throw new Exception("Internal Server Error", 500);
+        } 
     }
+
+    // public function exists(string $key, string|int|float $value) 
+    // public function exists($key, $value) 
+    // {
+    //     $query = "SELECT EXISTS (SELECT 1 FROM $this->table WHERE $key = $value)";
+
+    //     return $this->db->isExists($query);
+    // }
 
     protected static function getKeys(array $data) : string
     {
