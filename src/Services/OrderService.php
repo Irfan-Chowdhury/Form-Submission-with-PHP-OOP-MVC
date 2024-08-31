@@ -37,6 +37,8 @@ class OrderService
         self::phoneValidation($data['phone']);
 
         self::entryByValidation($data['entry_by']);
+
+        self::itemsValidation($_POST['items']);
     }
 
 
@@ -89,6 +91,11 @@ class OrderService
     {
         $this->validation->isRequired('Entry_by', $value);
         $this->validation->isPhoneNumber('Entry by', $value);
+    }
+
+    private function itemsValidation($values) 
+    {
+        $this->validation->isRequiredArray('Items', $values);
     }
 
 

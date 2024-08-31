@@ -13,6 +13,13 @@ class ValidationManager
         }
     }
 
+    public function isRequiredArray(string $key, $value)
+    {
+        if (!isset($_POST['items']) || !is_array($_POST['items']) || count(array_filter($_POST['items'], 'strlen')) === 0) {            
+            throw new Exception("$key field is Required", 400);
+        }
+    }
+
     public function isNumberCheck(string $key, $value)
     {
         $amount = self::requestSanitize($value);

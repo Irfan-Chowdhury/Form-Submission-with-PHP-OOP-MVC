@@ -1,12 +1,12 @@
 (function($) {
     "use strict";
 
-    if (document.cookie.indexOf('form_submitted') !== -1) {
-        let errorMessage =  '<p class="text-danger">You have already submitted the form today.</p>';
-        displayErrorMessage(errorMessage);
-    } else {
+
         $("#submitForm").on("submit",function(e){
             e.preventDefault();
+
+
+            isAlreadySubmission();
             amountValidation($("#submitForm input[name='amount']").val());
             buyerValidation($("#submitForm input[name='buyer']").val());
             receiptIdValidation($("#submitForm input[name='receipt_id']").val());
@@ -15,7 +15,9 @@
             phoneValidation($("#submitForm input[name='phone']").val());
             entryByValidation($("#submitForm input[name='entry_by']").val());
             noteValidation($("#submitForm textarea[name='note']").val());
-            
+
+            console.log('ok');
+
             $('#submitButton').text('Submitting...');
             $.post({
                 url: '/store',
@@ -36,7 +38,7 @@
                 }
             });
         });
-    }
+    
     
     $(document).on('click', '#add-invoice-item', function(){
         var item_id = parseInt($('#item-list .item:last').attr('id'))+1;
@@ -62,6 +64,14 @@
         let item_id = $(this).parent().parent().attr('id');
         $('#'+item_id).remove();
     });
+
+    let isAlreadySubmission = () => {
+        if (document.cookie.indexOf('form_submitted') !== -1) {
+            let errorMessage =  '<p class="text-danger">You have already submitted the form today.</p>';
+            displayErrorMessage(errorMessage);
+            return;
+        }
+    }
 
     let amountValidation = value => {
         if (value === '') {

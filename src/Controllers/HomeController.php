@@ -35,6 +35,7 @@ class HomeController extends Controller
 
     public function store()
     {
+
         try {
             
             $this->orderService->validation($_POST);
