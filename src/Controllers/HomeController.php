@@ -22,13 +22,14 @@ class HomeController extends Controller
 
     public function index()
     {
-        $journals = [
-            new Journal('My Third Journal Entry', '2023'),
-            new Journal('My Second Journal Entry', '2022'),
-            new Journal('My First Journal Entry', '2021')
-        ];
+        $orderData = $this->orderModel->getAll();
 
-        $this->render('index', ['journals' => $journals]);
+        $this->render('index', ['orderData' => $orderData]);
+    }
+
+    public function create()
+    {
+        $this->render('create');
     }
 
 

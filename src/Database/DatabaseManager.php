@@ -35,11 +35,18 @@ class DatabaseManager
     // Select or Read data
     public function select($query)
     {
-        $result = $this->link->query($query) or 
-        die($this->link->error.__LINE__);
+        $result = $this->link->query($query);
+        if (!$result) {
+            die("Query failed: " . $this->link->error . __LINE__);
+        }
         
-        if($result->num_rows > 0) {
-            return $result;
+        if ($result->num_rows > 0) {
+            // return $result->fetch_assoc();
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+            return $data;
         } else {
             return false;
         }

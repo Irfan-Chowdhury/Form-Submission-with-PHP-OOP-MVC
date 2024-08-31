@@ -6,6 +6,7 @@ use App\Router;
 $router = new Router();
 
 $router->get('/', HomeController::class, 'index');
-$router->post('/orders', HomeController::class, 'store');
+$router->get('/create', HomeController::class, 'create');
+$router->post('/store', HomeController::class, 'store');
 
 $router->dispatch();

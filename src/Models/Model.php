@@ -17,6 +17,13 @@ abstract class Model
     }
 
 
+    public function getAll() 
+    {
+        $query = "SELECT * FROM $this->table ORDER BY id DESC";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
     public function insert(array $data) 
     {
         $keys = self::getKeys($data);
