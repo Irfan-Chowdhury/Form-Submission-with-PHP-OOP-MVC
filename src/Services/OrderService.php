@@ -15,37 +15,23 @@ class OrderService
     }
 
 
-
     public function validation(array $data)
     {
         self::amountValidation($data['amount']);
 
         self::buyerValidation($data['buyer']);
 
+        self::receiptIdValidation($data['receipt_id']);
 
-        $this->validation->isRequired('Receipt Id', $data['receipt_id']);
-        $this->validation->isStringWithNoSpace('Receipt Id', $data['receipt_id']);
+        self::buyerEmailValidation($data['buyer_email']);
 
-        
-        $this->validation->isRequired('Buyer Email', $data['buyer_email']);
-        $this->validation->isMail('Buyer Email', $data['buyer_email']);
+        self::noteValidation($data['note']);
 
+        self::cityValidation($data['city']);
 
-        $this->validation->isRequired('Note', $data['note']);
-        $this->validation->isWordLimit('Note', $data['note'], 30);
-        $this->validation->isUnicodeString('Note', $data['note']);
+        self::phoneValidation($data['phone']);
 
-
-        $this->validation->isRequired('City', $data['city']);
-        $this->validation->isStringWithSpace('City', $data['city']);
-
-
-        $this->validation->isRequired('Phone', $data['phone']);
-        $this->validation->isPhoneNumber('Phone', $data['phone']);
-
-
-        $this->validation->isRequired('Entry_by', $data['entry_by']);
-        $this->validation->isPhoneNumber('Entry by', $data['entry_by']);
+        self::entryByValidation($data['entry_by']);
     }
 
 
@@ -54,7 +40,7 @@ class OrderService
         $this->validation->isRequired('Amount', $value);
         $this->validation->isNumberCheck('Amount', $value);
     }
-    
+
     private function buyerValidation($value)
     {
         $this->validation->isRequired('Buyer', $value);
@@ -62,6 +48,43 @@ class OrderService
         $this->validation->isWordLimit('Buyer', $value, 20);
     }
 
+    private function receiptIdValidation($value) 
+    {
+        $this->validation->isRequired('Receipt Id', $value);
+        $this->validation->isStringWithNoSpace('Receipt Id', $value);
+    }
+
+    private function buyerEmailValidation($value) 
+    {
+        $this->validation->isRequired('Buyer Email', $value);
+        $this->validation->isMail('Buyer Email', $value);
+    }
+
+    private function noteValidation($value) 
+    {
+        $this->validation->isRequired('Note', $value);
+        $this->validation->isWordLimit('Note', $value, 30);
+        $this->validation->isUnicodeString('Note', $value);
+    }
+
+
+    private function cityValidation($value) 
+    {
+        $this->validation->isRequired('City', $value);
+        $this->validation->isStringWithSpace('City', $value);
+    }
+
+    private function phoneValidation($value) 
+    {
+        $this->validation->isRequired('Phone', $value);
+        $this->validation->isPhoneNumber('Phone', $value);
+    }
+
+    private function entryByValidation($value) 
+    {
+        $this->validation->isRequired('Entry_by', $value);
+        $this->validation->isPhoneNumber('Entry by', $value);
+    }
 
 
     public function requestDataManage(array $data) : array

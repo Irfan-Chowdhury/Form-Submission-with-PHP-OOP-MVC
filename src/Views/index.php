@@ -26,13 +26,13 @@
             <div class="col-md-4">
                 <a href="/create" class="btn btn-info m-4 text-white">Create</a>
             </div>
-            <!-- <div class="col-md-4">
+            <div class="col-md-4">
                 <form action="/filter-by-date" method="get" id="submitForm">
                     <label for=""><b>Filter By Date</b></label>
                     <input id="date" type="date" name="date" class="form-control">
                     <button class="mt-2 btn btn-success">Submit</button>
                 </form>
-            </div> -->
+            </div>
             <div class="col-md-4"></div>
         </div>
         <hr>
@@ -105,10 +105,30 @@
             data: { date: date },
             success: function(response) {
                 if(response.result) {
-                    console.log(response.result);
-
+                    let data = response.result;
+                    console.log(data);
+                    $('#example tbody').empty();
+                    $.each(data, function(index, value) {
+                    $('#example tbody').append(`
+                            <tr>
+                                <td>${value.buyer}</td>
+                                <td>${value.buyer_email}</td>
+                                <td>${value.amount}</td>
+                                <td>${value.receipt_id}</td>
+                                <td>${value.city}</td>
+                                <td>${value.phone}</td>
+                                <td>${value.items}</td>
+                                <td>${value.entry_at}</td>
+                            </tr>
+                        `);
+                    });
                 }
-
+                else {
+                    $('#example tbody').html('<tr><td colspan="8">No data found for the selected date.</td></tr>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("An error occurred: " + error);
             }
         })
     });
