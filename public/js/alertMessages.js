@@ -1,9 +1,10 @@
 let prepareMessage = response => {
     let htmlContent = '';
-    if(response.responseJSON.errorMsg) {
-        htmlContent += '<p class="text-danger">' + response.responseJSON.errorMsg + '</p>';
-    }else if (isErrorCodes(response.status)){
+    if (isErrorCodes(response.status) &&  response.responseJSON){
         htmlContent += '<p class="text-danger">' + response.status + ' | ' + response.responseJSON.message + '</p>';
+    }
+    else if (isErrorCodes(response.status) && response.statusText){
+        htmlContent += '<p class="text-danger">' + response.status + ' | ' + response.statusText + '</p>';
     }
     else {
         let dataValues = Object.values(response.responseJSON.errors);

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Validation\ValidationManager;
 use DateTime;
+use Exception;
 
 class OrderService 
 {
@@ -17,6 +18,10 @@ class OrderService
 
     public function validation(array $data)
     {
+        if (isset($_COOKIE['form_submitted'])) {
+            throw new Exception("You have already submitted the form today.", 403);
+        }
+
         self::amountValidation($data['amount']);
 
         self::buyerValidation($data['buyer']);

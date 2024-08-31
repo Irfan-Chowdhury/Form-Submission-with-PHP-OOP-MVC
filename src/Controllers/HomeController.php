@@ -36,7 +36,7 @@ class HomeController extends Controller
     public function store()
     {
         try {
-
+            
             $this->orderService->validation($_POST);
  
             $data = $this->orderService->requestDataManage($_POST);
@@ -44,6 +44,8 @@ class HomeController extends Controller
             $dbArr = self::escapeString($data);
 
             $this->orderModel->insert($dbArr);
+
+            setcookie('form_submitted', 'true', time() + (24 * 60 * 60));
 
             return $this->sendResponse([],'Data submitted successfully');
 
