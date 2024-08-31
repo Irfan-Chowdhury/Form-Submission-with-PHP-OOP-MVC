@@ -5,7 +5,6 @@
         $("#submitForm").on("submit",function(e){
             e.preventDefault();
 
-
             isAlreadySubmission();
             amountValidation($("#submitForm input[name='amount']").val());
             buyerValidation($("#submitForm input[name='buyer']").val());
@@ -15,8 +14,6 @@
             phoneValidation($("#submitForm input[name='phone']").val());
             entryByValidation($("#submitForm input[name='entry_by']").val());
             noteValidation($("#submitForm textarea[name='note']").val());
-
-            console.log('ok');
 
             $('#submitButton').text('Submitting...');
             $.post({
@@ -69,7 +66,6 @@
         if (document.cookie.indexOf('form_submitted') !== -1) {
             let errorMessage =  '<p class="text-danger">You have already submitted the form today.</p>';
             displayErrorMessage(errorMessage);
-            return;
         }
     }
 

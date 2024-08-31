@@ -57,7 +57,7 @@ Run this command -
 cd public
 ```
 
-and jus Run 
+and again run this command
 
 ```bash
 php -S localhost:9999
