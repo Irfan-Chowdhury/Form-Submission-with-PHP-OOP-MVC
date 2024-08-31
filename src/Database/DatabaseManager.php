@@ -41,7 +41,6 @@ class DatabaseManager
         }
         
         if ($result->num_rows > 0) {
-            // return $result->fetch_assoc();
             $data = [];
             while ($row = $result->fetch_assoc()) {
                 $data[] = $row;
@@ -51,27 +50,6 @@ class DatabaseManager
             return false;
         }
     }
-
-    // public function isExists($query)
-    // {
-    //   $query = "SELECT COUNT(*) FROM orders WHERE orders = 'user@example.com'";
-      
-    //   $result = $this->link->query($query) or 
-    //   die($this->link->error.__LINE__);
-
-    //   if($result->num_rows > 0) {
-
-    //     var_dump(1);
-    //     die();
-    //       return $result;
-    //   } else {
-    //     var_dump(2);
-    //     die();
-    //       return false;
-    //   }
-
-
-
 
 
 

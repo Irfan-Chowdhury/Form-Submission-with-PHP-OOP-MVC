@@ -24,6 +24,13 @@ abstract class Model
         return $result;
     }
 
+    public function fetchDataByDate($date) 
+    {
+        $query = "SELECT * FROM $this->table WHERE `entry_at` = '$date'";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
     public function insert(array $data) 
     {
         $keys = self::getKeys($data);

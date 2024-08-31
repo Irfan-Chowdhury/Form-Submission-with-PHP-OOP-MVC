@@ -21,8 +21,21 @@
     <div class="container mt-5">
 
         <h3>All Data</h3>
+
+        <div class="row">
+            <div class="col-md-4">
+                <a href="/create" class="btn btn-info m-4 text-white">Create</a>
+            </div>
+            <!-- <div class="col-md-4">
+                <form action="/filter-by-date" method="get" id="submitForm">
+                    <label for=""><b>Filter By Date</b></label>
+                    <input id="date" type="date" name="date" class="form-control">
+                    <button class="mt-2 btn btn-success">Submit</button>
+                </form>
+            </div> -->
+            <div class="col-md-4"></div>
+        </div>
         <hr>
-        <a href="/create" class="btn btn-info m-4 text-white">Create</a>
         </br>
 
         <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -52,15 +65,11 @@
                         <td><?php echo $value['phone']; ?></td>
                         <td><?php echo $value['items']; ?></td>
                         <td><?php echo $value['entry_at']; ?></td>
-                        
                     </tr>
-
                 <?php     
                     }
                 }
                 ?>
-
-
             </tbody>
         </table>
 </div>
@@ -85,6 +94,23 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable();
+    });
+
+    $('#submitForm').on("submit",function(e){
+        e.preventDefault();
+        let date =  $('#date').val();
+        $.ajax({
+            url: '/filter-by-date',
+            type: 'GET',
+            data: { date: date },
+            success: function(response) {
+                if(response.result) {
+                    console.log(response.result);
+
+                }
+
+            }
+        })
     });
 </script>
 

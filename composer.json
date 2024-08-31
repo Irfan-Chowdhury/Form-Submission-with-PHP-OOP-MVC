@@ -1,5 +1,11 @@
 {
     "name": "irfan/arraytics-php-oop-mvc",
+    "type": "project",
+    "description": "This is a simple PHP form submission script with frontend validation project task by Arraytics.",
+    "keywords": ["php"],
+    "require": {
+        "php": "^8.2"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -10,6 +16,5 @@
             "name": "Irfan Chowdhury",
             "email": "irfanchowdhury80@gmail.com"
         }
-    ],
-    "require": {}
+    ]
 }

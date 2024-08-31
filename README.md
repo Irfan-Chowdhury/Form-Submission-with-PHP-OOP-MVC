@@ -5,7 +5,7 @@
 </div>
 
 ## Technology Used
-- PHP : v-8.1
+- PHP : v-8.2
 - MySQL : v-8 
 - Bootstrap : v-4
 - jQuery, Ajax

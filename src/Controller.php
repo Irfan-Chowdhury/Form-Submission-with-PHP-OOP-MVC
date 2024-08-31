@@ -11,7 +11,7 @@ class Controller
         include "Views/$view.php";
     }
 
-    public function sendResponse(array $result, string $message)
+    public function sendResponse(array|string $result, string|null $message)
     {
         header('Content-Type: application/json');
 

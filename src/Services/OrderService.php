@@ -14,15 +14,13 @@ class OrderService
         $this->validation = new ValidationManager();
     }
 
+
+
     public function validation(array $data)
     {
-        $this->validation->isRequired('Amount', $data['amount']);
-        $this->validation->isNumberCheck('Amount', $data['amount']);
+        self::amountValidation($data['amount']);
 
-
-        $this->validation->isRequired('Buyer', $data['buyer']);
-        $this->validation->isTextSpaceNumberCheck('Buyer', $data['buyer']);
-        $this->validation->isWordLimit('Buyer', $data['buyer'], 20);
+        self::buyerValidation($data['buyer']);
 
 
         $this->validation->isRequired('Receipt Id', $data['receipt_id']);
@@ -49,6 +47,21 @@ class OrderService
         $this->validation->isRequired('Entry_by', $data['entry_by']);
         $this->validation->isPhoneNumber('Entry by', $data['entry_by']);
     }
+
+
+    private function amountValidation($value)
+    {
+        $this->validation->isRequired('Amount', $value);
+        $this->validation->isNumberCheck('Amount', $value);
+    }
+    
+    private function buyerValidation($value)
+    {
+        $this->validation->isRequired('Buyer', $value);
+        $this->validation->isTextSpaceNumberCheck('Buyer', $value);
+        $this->validation->isWordLimit('Buyer', $value, 20);
+    }
+
 
 
     public function requestDataManage(array $data) : array

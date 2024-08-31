@@ -53,6 +53,16 @@ class HomeController extends Controller
         }
     }
 
+    public function filterByDate()
+    {
+        if (isset($_GET['date'])) {
+            $date = $this->orderModel->mysqliRealEscapeString($_GET['date']);
+            $getData = $this->orderModel->fetchDataByDate($date);
+
+            return $this->sendResponse($getData, null);
+        }
+    }
+
 
     private function escapeString(array $data) : array
     {

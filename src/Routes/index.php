@@ -8,5 +8,6 @@ $router = new Router();
 $router->get('/', HomeController::class, 'index');
 $router->get('/create', HomeController::class, 'create');
 $router->post('/store', HomeController::class, 'store');
+$router->get('/filter-by-date', HomeController::class, 'filterByDate');
 
 $router->dispatch();
