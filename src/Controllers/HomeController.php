@@ -10,9 +10,9 @@ use Exception;
 
 class HomeController extends Controller
 {
-    public static $orderService;
+    public $orderService;
 
-    public static $orderModel;
+    public $orderModel;
 
     public function __construct()
     {
